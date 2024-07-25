@@ -1,0 +1,39 @@
+{
+	"name": "nerdbord-project-challenge-lyyq1isp",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint --fix --dir src",
+		"format:staged": "prettier --ignore-unknown --write .",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{ts,tsx,css,json}": [
+			"npm run lint",
+			"npm run format:staged"
+		]
+	},
+	"dependencies": {
+		"next": "14.2.5",
+		"react": "^18",
+		"react-dom": "^18"
+	},
+	"devDependencies": {
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"@typescript-eslint/eslint-plugin": "^7.17.0",
+		"@typescript-eslint/parser": "^7.17.0",
+		"eslint": "^8",
+		"eslint-config-next": "14.2.5",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-import": "^2.29.1",
+		"husky": "^9.1.1",
+		"lint-staged": "^15.2.7",
+		"prettier": "^3.3.3",
+		"typescript": "^5"
+	}
+}
