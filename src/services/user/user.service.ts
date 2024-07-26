@@ -1,6 +1,6 @@
 ﻿import { prisma } from "@/lib/prismaClient";
 
-export const createUser = async (id: string) => {
+export const createOrUpdateUser = async (id: string) => {
 	const user = await prisma.user.upsert({
 		where: { clerkUserId: id },
 		update: { clerkUserId: id },
