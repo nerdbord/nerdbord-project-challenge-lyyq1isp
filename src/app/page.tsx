@@ -1,11 +1,12 @@
-import styles from "./page.module.css";
+import Link from "next/link";
+// import styles from "./page.module.css";
 import { Header } from "@/ui/Header/Header";
 
 export default function Home() {
 	return (
 		<>
 			<Header />
-			<div className={styles.homepage}>This is homepage</div>;
+			<Link href={"/dashboard"}>+</Link>
 		</>
 	);
 }

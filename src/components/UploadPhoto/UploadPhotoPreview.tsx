@@ -1,9 +1,16 @@
 ﻿import Image from "next/image";
+import styles from "./UploadPhotoPreview.module.scss";
 
-export const PhotoPreview = ({ imageSrc }: { imageSrc: string }) => {
+type UploadPhotoPreviewProps = {
+	imageURL: string;
+	onRemove: () => void;
+};
+
+export const UploadPhotoPreview = ({ imageURL, onRemove }: UploadPhotoPreviewProps) => {
 	return (
-		<div>
-			<Image src={imageSrc} alt="uploaded" width={300} height={300} />
+		<div className={styles.imgWrapper}>
+			<Image src={imageURL} alt="uploaded" width={300} height={300} />
+			<button onClick={onRemove}>X</button>
 		</div>
 	);
 };
