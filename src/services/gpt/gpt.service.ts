@@ -1,23 +1,25 @@
-﻿import { openai } from "@ai-sdk/openai";
-import { generateObject, JSONParseError, TypeValidationError } from "ai";
+﻿import { generateObject, JSONParseError, TypeValidationError } from "ai";
 import { z } from "zod";
+import { openai } from "../../../openai.config";
 
 const expenseSchema = z.object({
 	expenses: z.array(
 		z.object({
+			id: z.string(),
 			name: z.string(),
 			category: z.string(),
-			amount: z.number(),
+			price: z.number().refine((val) => Number(val.toFixed(2)) === val),
+			currency: z.string(),
 		}),
 	),
-	date: z.string().datetime().describe("The date of the expense (ISO 8601 date string().)"),
+	date: z.string().datetime(),
 });
 
-type Expense = z.infer<typeof expenseSchema>;
+export type Expense = z.infer<typeof expenseSchema>;
 
 export const generateExpense = async (
 	prompt: string,
-	imgUrl: string,
+	imgUrls: string[],
 ): Promise<
 	| { type: "success"; expense: Expense }
 	| { type: "parse-error"; text: string }
@@ -33,11 +35,15 @@ export const generateExpense = async (
 					role: "user",
 					content: [
 						{ type: "text", text: prompt },
-						{ type: "image", image: imgUrl },
+						...imgUrls.map((url) => ({ type: "image" as const, image: url })),
 					],
 				},
 			],
 		});
+
+		if (resp.object.expenses.length === 0) {
+			return { type: "validation-error", value: "No expenses found" };
+		}
 
 		return { type: "success", expense: resp.object };
 	} catch (error) {
