@@ -1,5 +1,11 @@
-﻿import styles from "./Header.module.css";
+﻿import { ReceiptViewer } from "../ReceiptViewer/ReceiptViewer";
+import styles from "./Header.module.css";
 
 export const Header = () => {
-	return <header className={styles.header}>This is header</header>;
+	return (
+		<header className={styles.header}>
+			This is header
+			<ReceiptViewer />
+		</header>
+	);
 };
