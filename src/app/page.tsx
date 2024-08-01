@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<>
 			<Header />
-			<div className={styles.homepage}>This is homepage</div>;
+			<div className={styles.homepage}></div>
 		</>
 	);
 }
