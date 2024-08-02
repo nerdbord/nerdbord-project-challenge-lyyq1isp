@@ -1,0 +1,20 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+	animation-name: menuIn;
+	animation-duration: 0.4s;
+}
+
+@keyframes menuIn {
+	0% {
+		right: -100%;
+	}
+	100% {
+		right: 0;
+	}
+}
