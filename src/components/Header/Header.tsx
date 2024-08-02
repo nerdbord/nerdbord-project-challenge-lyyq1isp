@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { Logo } from "./Logo/Logo";
 import styles from "./Header.module.scss";
