@@ -1,0 +1,12 @@
+.container {
+	width: 80%;
+	margin: 0 auto;
+	.firstText {
+		font-size: 47.8px;
+		font-weight: 600;
+	}
+    .secondTextContainer{
+        display: flex;
+        align-items: center;
+    }
+}

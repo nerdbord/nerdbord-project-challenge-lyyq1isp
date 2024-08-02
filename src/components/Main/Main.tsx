@@ -1,4 +1,10 @@
+import { ScannedReceipt } from "../ScannedReceipt/ScannedReceipt";
+
 const Main = () => {
-	return <main></main>;
+	return (
+		<main>
+			<ScannedReceipt />
+		</main>
+	);
 };
 export { Main };
