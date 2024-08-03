@@ -1,15 +1,61 @@
 .container {
-	margin-top: 20px;
 	.form {
+		position: relative;
 		display: flex;
+		justify-content: center;
 		flex-direction: column;
 		width: 80%;
-		margin: 0 auto;
+		margin: 10px auto;
+		padding: 10px;
+		border-radius: 6px;
+		background-color: #f7fafc;
+
+		label {
+			font-size: 12px;
+			color: #1a365d;
+		}
 		div {
 			display: flex;
+			flex-direction: column;
+			padding: 10px;
+		}
+		.pricesInputsContainer {
+			justify-content: space-between;
+			flex-direction: row;
+			width: 60%;
+			div {
+				padding: 0;
+			}
+			p,
+			span {
+				font-size: 12px;
+			}
+			p {
+				color: #1a365d;
+			}
 			input {
-				width: 30px;
+				width: 40px;
+				height: 40px;
 			}
 		}
+	}
+	.trashIcon {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		cursor: pointer;
+	}
+	.buttonsContainer {
+		position: relative;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		height: 10vh;
+		p {
+			position: absolute;
+			top: 5px;
+			left: 5px;
+		}
+		
 	}
 }
