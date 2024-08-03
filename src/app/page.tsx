@@ -6,7 +6,6 @@ export default function Home() {
 		<>
 			<Header />
 			<Main />
-			<div className={styles.homepage}></div>
 		</>
 	);
 }
