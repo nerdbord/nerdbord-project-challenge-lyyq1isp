@@ -7,11 +7,13 @@ import { MenuList } from "./MenuList/MenuList";
 
 export const Header = () => {
 	const [showMenu, setShowMenu] = useState(false);
+
 	const handleShowMenu = () => {
 		setShowMenu(!showMenu);
 	};
+
 	return (
-		<header>
+		<header className={styles.header}>
 			<nav className={styles.nav}>
 				<Logo />
 				<BurgerMenu onClick={handleShowMenu} />
