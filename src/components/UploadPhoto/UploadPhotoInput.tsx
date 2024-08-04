@@ -1,57 +1,66 @@
-﻿import { useState } from "react";
+﻿"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./UploadPhotoInput.module.scss";
+import { extractExpansesFromReceipt } from "@/app/api/actions/extractExpansesFromReceipt";
+import { useExpenseContext } from "@/contexts/ExpenseContext";
 
 type UploadPhotoProps = {
-	setImageURLs: React.Dispatch<React.SetStateAction<string[]>>;
-	label?: string;
+	label?: React.ReactNode;
+	className?: string;
 };
 
-export const UploadPhotoInput = ({ setImageURLs, label }: UploadPhotoProps) => {
-	const [error, setError] = useState<string | null>(null);
+export const UploadPhotoInput = ({ label, className }: UploadPhotoProps) => {
+	const [imageURL, setImageURL] = useState<string>("");
+	const { setExpenses } = useExpenseContext();
+	const router = useRouter();
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setError(null);
-		const files = Array.from(e.target.files || []);
+		const file = e.target.files?.[0] || null;
 
-		const validFiles = files.filter(
-			(file) =>
-				file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg",
-		);
-
-		if (validFiles.length === 0) {
-			setError("No valid images were selected (only PNG, JPG, and JPEG are allowed).");
-			console.log("No valid images were selected (only PNG, JPG, and JPEG are allowed).");
+		if (!file) {
 			return;
 		}
 
-		if (validFiles.length !== files.length) {
-			setError(
-				"Some files were not valid images (only PNG, JPG, and JPEG are allowed) and were ignored.",
-			);
-			console.log(
-				"Some files were not valid images (only PNG, JPG, and JPEG are allowed) and were ignored.",
-			);
-		}
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
 
-		validFiles.forEach((file) => {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-
-			reader.onload = () => {
-				setImageURLs((prev) => [...prev, reader.result as string]);
-			};
-		});
-
-		setError(null);
+		reader.onload = () => {
+			setImageURL(reader.result as string);
+		};
 	};
 
+	useEffect(() => {
+		const handleExtractExpense = async (): Promise<void> => {
+			try {
+				const expense = await extractExpansesFromReceipt(imageURL);
+
+				if (expense) {
+					setExpenses(expense);
+					setImageURL("");
+
+					router.push("/confirm-expenses");
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		if (imageURL) {
+			void handleExtractExpense();
+		}
+	}, [imageURL]);
+
 	return (
-		<div className={styles.uploadButtonWrapper}>
-			<label className={styles.uploadButton}>
-				{label}
-				<input type="file" accept=".png, .jpg, .jpeg" onChange={handleFileChange} multiple />
-			</label>
-			{error && <p className={styles.errorText}>{error}</p>}
-		</div>
+		<label className={className}>
+			{label}
+			<input
+				className={styles.uploadInput}
+				type="file"
+				accept=".png, .jpg, .jpeg"
+				onChange={handleFileChange}
+			/>
+		</label>
 	);
 };

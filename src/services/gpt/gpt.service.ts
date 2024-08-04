@@ -2,26 +2,23 @@
 import { z } from "zod";
 import { openai } from "../../../openai.config";
 
-const expenseSchema = z.object({
-	expenses: z.array(
-		z.object({
-			id: z.string(),
-			name: z.string(),
-			category: z.string(),
-			price: z.number().refine((val) => Number(val.toFixed(2)) === val),
-			currency: z.string(),
-		}),
-	),
-	date: z.string().datetime(),
-});
+const expenseSchema = z.array(
+	z.object({
+		name: z.string(),
+		value: z.number(),
+		currency: z.string(),
+		date: z.string().datetime().describe("The date of the expense (ISO 8601 date string().)"),
+		category: z.string(),
+	}),
+);
 
-export type Expense = z.infer<typeof expenseSchema>;
+export type Expenses = z.infer<typeof expenseSchema>;
 
 export const generateExpense = async (
 	prompt: string,
-	imgUrls: string[],
+	imgUrl: string,
 ): Promise<
-	| { type: "success"; expense: Expense }
+	| { type: "success"; expenses: Expenses }
 	| { type: "parse-error"; text: string }
 	| { type: "validation-error"; value: unknown }
 	| { type: "unknown-error"; error: unknown }
@@ -35,17 +32,17 @@ export const generateExpense = async (
 					role: "user",
 					content: [
 						{ type: "text", text: prompt },
-						...imgUrls.map((url) => ({ type: "image" as const, image: url })),
+						{ type: "image", image: imgUrl },
 					],
 				},
 			],
 		});
 
-		if (resp.object.expenses.length === 0) {
+		if (resp.object.length === 0) {
 			return { type: "validation-error", value: "No expenses found" };
 		}
 
-		return { type: "success", expense: resp.object };
+		return { type: "success", expenses: resp.object };
 	} catch (error) {
 		if (TypeValidationError.isTypeValidationError(error)) {
 			return { type: "validation-error", value: error.value };
