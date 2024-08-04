@@ -7,7 +7,7 @@ export const DownBar = () => {
 	return (
 		<div className={styles.downBar}>
 			<UploadPhotoInput label={<AddIcon />} className={styles.uploadPhotoInput} />
-			Dodaj paragon
+			<span className={styles.text}>Dodaj paragon</span>
 		</div>
 	);
 };

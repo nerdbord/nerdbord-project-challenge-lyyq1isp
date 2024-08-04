@@ -7,7 +7,7 @@ import { UploadPhotoInput } from "@/components/UploadPhoto/UploadPhotoInput";
 export const ExtractingError = () => {
 	return (
 		<div className={styles.wrapper}>
-			<Logo width={39} height={29} />
+			<Logo width={39} height={29} withText />
 			<p className={styles.info}>
 				<span>Jeszcze raz.</span>
 				<br />

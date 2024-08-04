@@ -15,7 +15,7 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<nav className={styles.nav}>
-				<Logo width={39} height={29} />
+				<Logo width={39} height={29} withText />
 				<BurgerMenu onClick={handleShowMenu} />
 			</nav>
 			{showMenu && <MenuList />}
