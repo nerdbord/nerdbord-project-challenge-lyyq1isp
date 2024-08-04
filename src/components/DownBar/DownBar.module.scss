@@ -1,0 +1,49 @@
+﻿.downBar {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 6.5px;
+	width: 390px;
+	padding: 10px 0;
+	background-color: #ffffffd9;
+
+	color: #00a3c4;
+	z-index: 2;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		backdrop-filter: blur(16px);
+		z-index: 1;
+	}
+
+	.uploadPhotoInput {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 56px;
+		height: 56px;
+		background-color: #00a3c4;
+		border-radius: 50%;
+		cursor: pointer;
+		z-index: 2;
+
+		& svg {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	.text {
+		z-index: 2;
+	}
+}

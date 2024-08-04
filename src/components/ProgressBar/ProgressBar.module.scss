@@ -1,0 +1,28 @@
+﻿.progressBar {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 15px;
+	background-color: #00a3c473;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.progressBarFilled {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #1a365dd9;
+	animation: move 2s linear infinite;
+}
+
+@keyframes move {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}

@@ -1,19 +1,21 @@
 "use client";
 import { useState } from "react";
-import { Logo } from "./Logo/Logo";
 import styles from "./Header.module.scss";
 import { BurgerMenu } from "./BurgerMenu/BurgerMenu";
 import { MenuList } from "./MenuList/MenuList";
+import { Logo } from "@/components/Logo/Logo";
 
 export const Header = () => {
 	const [showMenu, setShowMenu] = useState(false);
+
 	const handleShowMenu = () => {
 		setShowMenu(!showMenu);
 	};
+
 	return (
-		<header>
+		<header className={styles.header}>
 			<nav className={styles.nav}>
-				<Logo />
+				<Logo width={39} height={29} withText />
 				<BurgerMenu onClick={handleShowMenu} />
 			</nav>
 			{showMenu && <MenuList />}

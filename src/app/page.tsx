@@ -1,12 +1,13 @@
-import styles from "./page.module.css";
-import { Main } from "@/components/Main/Main";
-import { Header } from "@/ui/Header/Header";
+import { Container } from "@/components/Container/Container";
+import { Header } from "@/components/Header/Header";
 
 export default function Home() {
 	return (
 		<>
 			<Header />
-			<Main />
+			<Container>
+				<div>landing page</div>
+			</Container>
 		</>
 	);
 }

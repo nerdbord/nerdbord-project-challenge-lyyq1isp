@@ -1,17 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
-
 * {
-	font-family: "Source Sans Pro", sans-serif;
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	font-family: "Source Sans Pro", sans-serif;
 }
+
+html,
+body {
+	min-height: 100vh;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
 input {
 	border: 1px solid #edf2f7;
 	border-radius: 5px;
+
 	width: 216px;
 	padding: 5px 10px;
 }
+
 button {
 	border: none;
 	padding: 10px 100px;
@@ -20,4 +31,12 @@ button {
 	color: #fff;
 	cursor: pointer;
 	font-weight: 600;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
 }
