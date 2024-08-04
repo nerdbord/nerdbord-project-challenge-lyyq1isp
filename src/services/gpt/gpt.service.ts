@@ -2,15 +2,17 @@
 import { z } from "zod";
 import { openai } from "../../../openai.config";
 
-const expenseSchema = z.array(
-	z.object({
-		name: z.string(),
-		value: z.number(),
-		currency: z.string(),
-		date: z.string().datetime().describe("The date of the expense (ISO 8601 date string().)"),
-		category: z.string(),
-	}),
-);
+const expenseSchema = z.object({
+	expenses: z.array(
+		z.object({
+			name: z.string(),
+			value: z.number(),
+			currency: z.string(),
+			date: z.string().datetime().describe("The date of the expense (ISO 8601 date string().)"),
+			category: z.string(),
+		}),
+	),
+});
 
 export type Expenses = z.infer<typeof expenseSchema>;
 
@@ -38,7 +40,7 @@ export const generateExpense = async (
 			],
 		});
 
-		if (resp.object.length === 0) {
+		if (resp.object.expenses.length === 0) {
 			return { type: "validation-error", value: "No expenses found" };
 		}
 

@@ -20,15 +20,26 @@ type Expense = {
 interface ExpenseContextProps {
 	setExpenses: Dispatch<SetStateAction<Expense[]>>;
 	expenses: Expense[];
+	isLoading: boolean;
+	setIsLoading: Dispatch<SetStateAction<boolean>>;
+	isError: boolean;
+	setIsError: Dispatch<SetStateAction<boolean>>;
 }
 
 const ExpenseContext = createContext<ExpenseContextProps | undefined>(undefined);
 
 export const ExpenseProvider = ({ children }: PropsWithChildren) => {
 	const [expenses, setExpenses] = useState<Expense[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isError, setIsError] = useState<boolean>(false);
 
+	console.log("expenses", expenses);
 	return (
-		<ExpenseContext.Provider value={{ expenses, setExpenses }}>{children}</ExpenseContext.Provider>
+		<ExpenseContext.Provider
+			value={{ expenses, setExpenses, isLoading, setIsLoading, isError, setIsError }}
+		>
+			{children}
+		</ExpenseContext.Provider>
 	);
 };
 

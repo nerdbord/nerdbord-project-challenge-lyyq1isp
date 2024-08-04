@@ -12,5 +12,11 @@ export const extractExpansesFromReceipt = async (imageURL: string) => {
 
 	if (resp.type === "success") {
 		return resp.expenses;
+	} else if (resp.type === "validation-error") {
+		throw resp.value;
+	} else if (resp.type === "parse-error") {
+		throw resp.text;
+	} else {
+		throw resp.error;
 	}
 };

@@ -13,7 +13,7 @@ type UploadPhotoProps = {
 
 export const UploadPhotoInput = ({ label, className }: UploadPhotoProps) => {
 	const [imageURL, setImageURL] = useState<string>("");
-	const { setExpenses } = useExpenseContext();
+	const { setExpenses, setIsLoading, setIsError } = useExpenseContext();
 	const router = useRouter();
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,17 +33,22 @@ export const UploadPhotoInput = ({ label, className }: UploadPhotoProps) => {
 
 	useEffect(() => {
 		const handleExtractExpense = async (): Promise<void> => {
+			setIsLoading(true);
+			setIsError(false);
 			try {
 				const expense = await extractExpansesFromReceipt(imageURL);
 
 				if (expense) {
-					setExpenses(expense);
+					setExpenses(expense.expenses);
 					setImageURL("");
 
 					router.push("/confirm-expenses");
 				}
 			} catch (error) {
 				console.log(error);
+				setIsError(true);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 
