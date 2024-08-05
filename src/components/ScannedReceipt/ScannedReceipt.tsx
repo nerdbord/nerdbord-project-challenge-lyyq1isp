@@ -42,7 +42,7 @@ const ScannedReceipt = () => {
 	]);
 	const categories = ["Żywność", "Rachunki", "Edukacja"];
 	return (
-		<div>
+		<div style={{ paddingTop: "100px" }}>
 			<Heading />
 			<ReceiptList
 				data={dataFromReceipt}

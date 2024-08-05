@@ -2,6 +2,7 @@ import { type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 import Image from "next/image";
 import { type ReceiptListType } from "../ScannedReceipt";
 import styles from "./ReceiptList.module.scss";
+import { AddPosition } from "./AddPosition/AddPosition";
 type Props = {
 	data: ReceiptListType[];
 	categories: string[];
@@ -29,6 +30,20 @@ const ReceiptList = ({ data, categories, setDataFromReceipt }: Props) => {
 				return el.id !== id;
 			});
 			return changeData;
+		});
+	};
+	const handleAddPostion = () => {
+		setDataFromReceipt((prevData) => {
+			return [
+				...prevData,
+				{
+					name: "",
+					category: "",
+					count: 0,
+					price: 0,
+					id: 12341231,
+				},
+			];
 		});
 	};
 	return (
@@ -109,8 +124,9 @@ const ReceiptList = ({ data, categories, setDataFromReceipt }: Props) => {
 				);
 			})}
 			<div className={styles.buttonsContainer}>
-				<p>dodaj pozycję</p>
+				<AddPosition addPosition={handleAddPostion} />
 				<button>Zapisz</button>
+				<button className={styles.cancelButton}>Anuluj</button>
 			</div>
 		</div>
 	);
