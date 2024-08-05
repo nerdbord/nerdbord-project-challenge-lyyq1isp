@@ -1,4 +1,4 @@
-import { type Dispatch, type SetStateAction } from "react";
+import { useMemo, type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 import Image from "next/image";
 import styles from "./ReceiptList.module.scss";
 import { type Expense } from "@/types/expense.types";
@@ -13,41 +13,57 @@ type ReceiptListProps = {
 	setCategories: Dispatch<SetStateAction<string[]>>;
 };
 
-const ReceiptList = ({ expenses }: ReceiptListProps) => {
-	// const handleChangeData = (event: ChangeEvent<HTMLInputElement>, id: number) => {
-	// 	const { name, value } = event.target;
+const ReceiptList = ({ expenses, setExpenses, categories, setCategories }: ReceiptListProps) => {
+	const handleChangeData = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+		const { name, value } = event.target;
 
-	// 	setExpenses((prevData) => {
-	// 		const changedData = prevData.map((el) => {
-	// 			if (el.id === id) {
-	// 				return {
-	// 					...el,
-	// 					[name]: name === "price" || name === "count" ? Number(value) : value,
-	// 				};
-	// 			}
-	// 			return el;
-	// 		});
-	// 		return changedData;
-	// 	});
-	// };
+		setExpenses((prevData) => {
+			const changedData = prevData.map((el) => {
+				if (el.id === id) {
+					return {
+						...el,
+						[name]: name === "count" ? Number(value) : value,
+					};
+				}
+				return el;
+			});
+			return changedData;
+		});
+	};
 
-	// const handleDeleteExpense = (id: number) => {
-	// 	setExpenses((prevData) => {
-	// 		const changeData = prevData.filter((el) => {
-	// 			return el.id !== id;
-	// 		});
-	// 		return changeData;
-	// 	});
-	// };
-	console.log("expenses", expenses);
+	const handleSetCategory = (category: string, id: string) => {
+		setExpenses((prevData) => {
+			return prevData.map((expense) => {
+				if (expense.id === id) {
+					return {
+						...expense,
+						category: category,
+					};
+				}
 
-	const getReceiptValue = () => {
-		const sum = expenses.reduce((acc, expense) => {
+				return expense;
+			});
+		});
+	};
+
+	const handleAddCategory = (newCategory: string) => {
+		setCategories((prevData) => [...prevData, newCategory]);
+	};
+
+	const handleDeleteExpense = (id: string) => {
+		setExpenses((prevData) => {
+			const changeData = prevData.filter((el) => {
+				return el.id !== id;
+			});
+			return changeData;
+		});
+	};
+
+	const getReceiptValue = useMemo(() => {
+		return expenses.reduce((acc, expense) => {
 			return acc + expense.value;
 		}, 0);
-
-		return sum;
-	};
+	}, [expenses]);
 
 	return (
 		<div className={styles.container}>
@@ -56,7 +72,7 @@ const ReceiptList = ({ expenses }: ReceiptListProps) => {
 					<CalendarIcon />
 					<p>{renderDate(expenses[0].date)}</p>
 				</div>
-				<p className={styles.receiptValue}>{`${getReceiptValue()} zł`}</p>
+				<p className={styles.receiptValue}>{`${getReceiptValue} zł`}</p>
 			</div>
 			<form className={styles.form}>
 				{expenses.map((expense, index) => {
@@ -69,46 +85,23 @@ const ReceiptList = ({ expenses }: ReceiptListProps) => {
 									name="name"
 									id="expense-name"
 									value={expense.name}
-									// onChange={(event) => {
-									// 	handleChangeData(event, expense.id);
-									// }}
+									onChange={(event) => {
+										handleChangeData(event, expense.id);
+									}}
 								/>
 							</div>
 							<div>
 								<label htmlFor="expense-category">
 									Kategoria
-									<Dropdown />
+									<Dropdown
+										id={expense.id}
+										selectedValue={expense.category}
+										options={categories}
+										addNewOptions={handleAddCategory}
+										onSelect={handleSetCategory}
+									/>
 								</label>
-								{/* <select name="category" id="expense-category">
-									{categories.map((category, index) => {
-										return (
-											<option key={index} value={category}>
-												{category}
-											</option>
-										);
-									})}
-									<option>
-										<input type="text" />
-										<button>
-											<AddIcon />
-										</button>
-									</option>
-								</select> */}
-								{/* <input
-									list="expense-categories-list"
-									id="expense-categories"
-									name="category"
-									value={expense.category}
-									// onChange={(event) => {
-									// 	handleChangeData(event, expense.id);
-									// }}
-								/> */}
 							</div>
-							{/* <datalist id="expense-categories-list">
-								{categories.map((category, index) => {
-									return <option key={index} value={category}></option>;
-								})}
-							</datalist> */}
 							<div className={styles.pricesInputsContainer}>
 								<label htmlFor="expense-value">Wartość</label>
 								<input
@@ -116,9 +109,9 @@ const ReceiptList = ({ expenses }: ReceiptListProps) => {
 									name="value"
 									value={expense.value}
 									type="number"
-									// onChange={(event) => {
-									// 	handleChangeData(event, expense.id);
-									// }}
+									onChange={(event) => {
+										handleChangeData(event, expense.id);
+									}}
 								/>
 								zł
 							</div>
@@ -128,9 +121,9 @@ const ReceiptList = ({ expenses }: ReceiptListProps) => {
 								alt="trash icon"
 								width={20}
 								height={20}
-								// onClick={() => {
-								// 	handleDeleteExpense(expense.id);
-								// }}
+								onClick={() => {
+									handleDeleteExpense(expense.id);
+								}}
 							/>
 						</div>
 					);

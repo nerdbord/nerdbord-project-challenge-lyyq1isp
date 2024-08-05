@@ -1,25 +1,39 @@
-﻿import { useState } from "react";
+﻿import { useRef, useState } from "react";
+import styles from "./Dropdown.module.scss";
 import { AddIcon, ArrowDown, ArrowUp } from "@/assets/icons";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 enum ArrowDirection {
 	UP = "UP",
 	DOWN = "DOWN",
 }
 
-export const Dropdown = () => {
+type DropdownProps = {
+	id: string;
+	options: string[];
+	onSelect: (category: string, id: string) => void;
+	selectedValue: string;
+	addNewOptions?: (newCategory: string) => void;
+};
+
+export const Dropdown = ({
+	options,
+	onSelect,
+	selectedValue,
+	addNewOptions,
+	id,
+}: DropdownProps) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const [categories, setCategories] = useState<string[]>([
-		"Jedzenie",
-		"Rachunki",
-		"Transport",
-		"Zdrowie",
-		"Ubranie",
-		"Higiena",
-		"Inne",
-	]);
 	const [newCategory, setNewCategory] = useState<string>("");
 	const [arrow, setArrow] = useState(ArrowDirection.DOWN);
-	const [value, setValue] = useState<string>("Wybierz kategorię");
+
+	const dropdownRef = useRef<HTMLDivElement>(null);
+
+	useOutsideClick(
+		dropdownRef,
+		() => setIsDropdownOpen(false),
+		() => setArrow(ArrowDirection.DOWN),
+	);
 
 	const handleDropdownClick = () => {
 		setIsDropdownOpen((prev) => !prev);
@@ -27,36 +41,47 @@ export const Dropdown = () => {
 	};
 
 	const handleSelectCategory = (category: string) => {
-		setValue(category);
+		onSelect(category, id);
 		handleDropdownClick();
 	};
 
+	const handleAddCategory = () => {
+		addNewOptions && addNewOptions(newCategory);
+		handleSelectCategory(newCategory);
+		setNewCategory("");
+	};
+
 	return (
-		<div>
-			<button type="button" onClick={() => handleDropdownClick()}>
-				{value}
+		<div className={styles.dropdownContainer} ref={dropdownRef}>
+			<button className={styles.dropdownButton} type="button" onClick={() => handleDropdownClick()}>
+				{selectedValue || "Wybierz kategorię"}
 				{arrow === ArrowDirection.DOWN ? <ArrowDown /> : <ArrowUp />}
 			</button>
 
 			{isDropdownOpen && (
-				<ul>
-					{categories.map((category, index) => {
+				<ul className={styles.dropdownList}>
+					{options.map((option, index) => {
 						return (
-							<li key={index} onClick={() => handleSelectCategory(category)}>
-								{category}
+							<li
+								key={index}
+								className={styles.dropdownListItem}
+								onClick={() => handleSelectCategory(option)}
+							>
+								{option}
 							</li>
 						);
 					})}
-					<div>
+					<li className={styles.dropdownListInput}>
 						<input
 							type="text"
 							value={newCategory}
+							placeholder="Dodaj nową kategorię"
 							onChange={(e) => setNewCategory(e.target.value)}
 						/>
-						<button type="button" onClick={() => setCategories((prev) => [...prev, newCategory])}>
+						<button type="button" onClick={handleAddCategory}>
 							<AddIcon />
 						</button>
-					</div>
+					</li>
 				</ul>
 			)}
 		</div>

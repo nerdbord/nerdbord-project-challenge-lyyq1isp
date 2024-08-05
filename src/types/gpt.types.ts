@@ -1,6 +1,7 @@
 ﻿import { z } from "zod";
 
 const gptExpenseItemSchema = z.object({
+	id: z.string(),
 	name: z.string(),
 	value: z.number(),
 	currency: z.string(),
