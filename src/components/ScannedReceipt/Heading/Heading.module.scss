@@ -1,12 +1,21 @@
 .container {
-	width: 80%;
-	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding: 0 15px;
+	margin-bottom: 15px;
+
 	.firstText {
-		font-size: 47.8px;
+		font-size: 22px;
 		font-weight: 600;
+		color: #1a365d;
 	}
+
 	.secondTextContainer {
 		display: flex;
 		align-items: center;
+		gap: 15px;
+		font-size: 14px;
+		color: #372d2d;
 	}
 }
