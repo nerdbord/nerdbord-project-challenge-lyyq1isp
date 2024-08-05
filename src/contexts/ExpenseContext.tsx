@@ -8,14 +8,7 @@ import {
 	useContext,
 	useState,
 } from "react";
-
-type Expense = {
-	name: string;
-	date: string;
-	category: string;
-	value: number;
-	currency: string;
-};
+import { type Expense } from "@/types/expense.types";
 
 interface ExpenseContextProps {
 	setExpenses: Dispatch<SetStateAction<Expense[]>>;
@@ -33,7 +26,6 @@ export const ExpenseProvider = ({ children }: PropsWithChildren) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isError, setIsError] = useState<boolean>(false);
 
-	console.log("expenses", expenses);
 	return (
 		<ExpenseContext.Provider
 			value={{ expenses, setExpenses, isLoading, setIsLoading, isError, setIsError }}
