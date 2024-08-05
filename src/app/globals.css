@@ -15,17 +15,18 @@ body {
 	flex-direction: column;
 }
 
-input {
+input,
+select {
 	border: 1px solid #edf2f7;
-	border-radius: 5px;
-
+	border-radius: 8px;
 	width: 216px;
 	padding: 5px 10px;
+	font-size: 12px;
 }
 
 button {
 	border: none;
-	padding: 10px 100px;
+	/* padding: 10px 100px; */
 	border-radius: 45px;
 	background-color: #1a365d;
 	color: #fff;

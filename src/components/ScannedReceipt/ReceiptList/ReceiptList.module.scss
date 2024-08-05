@@ -1,60 +1,123 @@
 .container {
-	.form {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		width: 80%;
-		margin: 10px auto;
-		padding: 10px;
-		border-radius: 6px;
-		background-color: #f7fafc;
+	padding: 0 15px;
 
-		label {
-			font-size: 12px;
-			color: #1a365d;
-		}
-		div {
+	.subHeader {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		margin-bottom: 15px;
+
+		.receiptDate {
 			display: flex;
-			flex-direction: column;
-			padding: 10px;
-		}
-		.pricesInputsContainer {
-			justify-content: space-between;
-			flex-direction: row;
-			width: 60%;
-			div {
-				padding: 0;
-			}
-			p,
-			span {
-				font-size: 12px;
-			}
-			p {
+			gap: 11px;
+			align-items: center;
+
+			& p {
 				color: #1a365d;
 			}
-			input {
-				width: 40px;
-				height: 40px;
-			}
+		}
+
+		.receiptValue {
+			color: #1a365d;
+			font-size: 24px;
+			font-weight: 900;
 		}
 	}
-	.trashIcon {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		cursor: pointer;
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+
+		.inputsContainer {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			gap: 8px;
+			padding: 6px 8px;
+			border-radius: 8px;
+			background-color: #f7fafc;
+
+			div {
+				display: flex;
+				flex-direction: column;
+			}
+
+			label {
+				font-size: 12px;
+				color: #1a365d;
+			}
+
+			input,
+			select {
+				max-width: 317px;
+				width: 100%;
+				height: 38px;
+				border: 1px solid #edf2f7;
+			}
+
+			.pricesInputsContainer {
+				align-items: center;
+				flex-direction: row;
+				gap: 3px;
+				font-size: 12px;
+
+				input {
+					width: 90px;
+				}
+			}
+		}
+
+		.trashIcon {
+			position: absolute;
+			bottom: 15px;
+			right: 15px;
+			cursor: pointer;
+		}
 	}
+
 	.buttonsContainer {
 		position: relative;
 		width: 100%;
 		display: flex;
 		justify-content: center;
-		height: 10vh;
-		p {
-			position: absolute;
-			top: 5px;
-			left: 5px;
+		align-items: center;
+		flex-direction: column;
+		gap: 50px;
+		margin-top: 14px;
+
+		.innerBtnsContainer {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 30px;
+			width: 100%;
+
+			.cancelButton,
+			.saveButton {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				max-width: 361px;
+				width: 100%;
+				height: 48px;
+				padding: 10px 24px;
+				font-weight: 700;
+				border-radius: 45px;
+				cursor: pointer;
+			}
+
+			.cancelButton {
+				background-color: #fff;
+				border: 1px solid #00a3c4;
+				color: #00a3c4;
+			}
+
+			.saveButton {
+				background-color: #00a3c4;
+				color: #fff;
+			}
 		}
 	}
 }

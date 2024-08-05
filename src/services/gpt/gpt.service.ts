@@ -1,26 +1,12 @@
 ﻿import { generateObject, JSONParseError, TypeValidationError } from "ai";
-import { z } from "zod";
 import { openai } from "../../../openai.config";
-
-const expenseSchema = z.object({
-	expenses: z.array(
-		z.object({
-			name: z.string(),
-			value: z.number(),
-			currency: z.string(),
-			date: z.string().datetime().describe("The date of the expense (ISO 8601 date string().)"),
-			category: z.string(),
-		}),
-	),
-});
-
-export type Expenses = z.infer<typeof expenseSchema>;
+import { type GptExpense, gptExpenseSchema } from "@/types/gpt.types";
 
 export const generateExpense = async (
 	prompt: string,
 	imgUrl: string,
 ): Promise<
-	| { type: "success"; expenses: Expenses }
+	| { type: "success"; expenses: GptExpense }
 	| { type: "parse-error"; text: string }
 	| { type: "validation-error"; value: unknown }
 	| { type: "unknown-error"; error: unknown }
@@ -28,7 +14,7 @@ export const generateExpense = async (
 	try {
 		const resp = await generateObject({
 			model: openai("gpt-4o"),
-			schema: expenseSchema,
+			schema: gptExpenseSchema,
 			messages: [
 				{
 					role: "user",
