@@ -1,8 +1,12 @@
-﻿.nav {
-	display: flex;
-	justify-content: space-around;
+﻿.header {
+	background-color: #fff;
 	position: fixed;
-	margin-top: 30px;
+	padding-top: 30px;
+	height: 20vh;
 	width: 100%;
 	z-index: 2;
+	.nav {
+		display: flex;
+		justify-content: space-around;
+	}
 }

@@ -11,7 +11,7 @@ export const Header = () => {
 		setShowMenu(!showMenu);
 	};
 	return (
-		<header>
+		<header className={styles.header}>
 			<nav className={styles.nav}>
 				<Logo />
 				<BurgerMenu onClick={handleShowMenu} />
