@@ -1,10 +1,12 @@
 import { useMemo, type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./ReceiptList.module.scss";
 import { type Expense } from "@/types/expense.types";
 import { CalendarIcon } from "@/assets/icons";
 import { renderDate } from "@/utils/renderDate";
 import { Dropdown } from "@/components/Dropdown/Dropdown";
+import { AddPosition } from "@/components/ScannedReceipt/ReceiptList/AddPosition/AddPosition";
 
 type ReceiptListProps = {
 	expenses: Expense[];
@@ -64,6 +66,27 @@ const ReceiptList = ({ expenses, setExpenses, categories, setCategories }: Recei
 			return acc + expense.value;
 		}, 0);
 	}, [expenses]);
+
+	const handleAddPostion = () => {
+		setExpenses((prevData) => {
+			return [
+				...prevData,
+				{
+					name: "",
+					category: "",
+					currency: "PLN",
+					value: 0,
+					id: Math.random().toString(36).substr(2, 9),
+					date: new Date().toString(),
+				},
+			];
+		});
+	};
+
+	const handleSaveExpenses = () => {
+		// TODO: send data to backend
+		console.log("expenses", expenses);
+	};
 
 	return (
 		<div className={styles.container}>
@@ -130,8 +153,15 @@ const ReceiptList = ({ expenses, setExpenses, categories, setCategories }: Recei
 				})}
 			</form>
 			<div className={styles.buttonsContainer}>
-				<p>dodaj pozycję</p>
-				<button>Zapisz</button>
+				<AddPosition addPosition={handleAddPostion} />
+				<div className={styles.innerBtnsContainer}>
+					<button onClick={handleSaveExpenses} className={styles.saveButton}>
+						Zapisz
+					</button>
+					<Link href={"/dashboard"} className={styles.cancelButton}>
+						Anuluj
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
