@@ -1,0 +1,32 @@
+.sumOfExpenses {
+    padding: 10px;
+	p {
+		color: var(--Grey-500, #718096);
+		font-size: 18px;
+	}
+	h4 {
+		color: var(--Blue-900, #1a365d);
+		font-size: 27.6px;
+	}
+}
+
+.list {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 80%;
+	li {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		color: var(--Blue-900, #1a365d);
+		padding: 10px;
+		div {
+			height: 10px;
+			max-width: 100px;
+			min-width: 10px;
+			border-radius: 0px var(--Main-System-4px, 4px) var(--Main-System-4px, 4px) 0px;
+		}
+	}
+}
