@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
-import "./globals.css";
+import "./globals.scss";
 import { ExpenseProvider } from "@/contexts/ExpenseContext";
 
 const sourceSans3 = Source_Sans_3({ subsets: ["latin"] });
