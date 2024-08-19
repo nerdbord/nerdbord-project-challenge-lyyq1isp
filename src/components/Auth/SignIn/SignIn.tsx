@@ -47,9 +47,19 @@ export const SignIn = () => {
 			<div className={styles.divider}>-lub-</div>
 
 			<div className={styles.buttonsWrapper}>
-				<SignInWithButton text="Kontynuuj z Google" variant="outline" icon={<GoogleIcon />} />
+				<SignInWithButton
+					strategy="oauth_google"
+					text="Kontynuuj z Google"
+					variant="outline"
+					icon={<GoogleIcon />}
+				/>
 
-				<SignInWithButton text="Kontynuuj z Facebook" variant="primary" icon={<FacebookIcon />} />
+				<SignInWithButton
+					strategy="oauth_facebook"
+					text="Kontynuuj z Facebook"
+					variant="primary"
+					icon={<FacebookIcon />}
+				/>
 			</div>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import "./globals.scss";
+import { ClerkProvider } from "@clerk/nextjs";
 import { ExpenseProvider } from "@/contexts/ExpenseContext";
 
 const sourceSans3 = Source_Sans_3({ subsets: ["latin"] });
@@ -16,10 +17,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={sourceSans3.className}>
-				<ExpenseProvider>{children}</ExpenseProvider>
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en">
+				<body className={sourceSans3.className}>
+					<ExpenseProvider>{children}</ExpenseProvider>
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }

@@ -4,6 +4,7 @@ export type Expense = {
 	price: string;
 	currency: string;
 	id: number;
+	value: number;
 };
 export type ReceiptDataType = {
 	expenses: Expense[];
