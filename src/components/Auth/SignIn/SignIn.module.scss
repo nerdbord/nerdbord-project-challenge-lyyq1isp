@@ -1,0 +1,67 @@
+﻿@import "@/styles/colors";
+@import "@/styles/fonts";
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
+}
+
+.goBack {
+	align-self: start;
+	margin-bottom: 24px;
+}
+
+.heading {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	& .header {
+		text-align: center;
+		color: $color-blue-900;
+	}
+
+	& .info {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+
+		& svg {
+			width: 25px;
+			height: 25px;
+			flex-shrink: 0;
+		}
+
+		& p {
+			font-size: $text-large;
+			color: $color-typo;
+		}
+	}
+}
+
+.divider {
+	font-size: $text-medium;
+	color: $color-gray-400;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	width: 100%;
+
+	& .signInButton {
+		width: 200px;
+	}
+}
+
+.buttonsWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+}

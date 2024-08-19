@@ -19,5 +19,9 @@ export const Button = ({ variant = "primary", className, ...props }: ButtonProps
 		className,
 	);
 
-	return <button className={buttonClasses}>{props.children}</button>;
+	return (
+		<button className={buttonClasses} {...props}>
+			{props.children}
+		</button>
+	);
 };
