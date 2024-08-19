@@ -1,0 +1,55 @@
+@import "@/styles/mixins/typography.scss";
+@import "@/styles/fonts";
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+html,
+body {
+	min-height: 100vh;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+ul {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1 {
+	@include typography($heading-1, $text-extra-bold);
+}
+
+h2 {
+	@include typography($heading-2, $text-bold);
+}
+
+h3 {
+	@include typography($heading-3, $text-bold);
+}
+
+h4 {
+	@include typography($heading-4, $text-bold);
+}
+
+h5 {
+	@include typography($heading-5, $text-bold);
+}
+
+h6 {
+	@include typography($heading-6, $text-bold);
+}
+
+p {
+	@include typography($text-medium, $text-regular);
+}
