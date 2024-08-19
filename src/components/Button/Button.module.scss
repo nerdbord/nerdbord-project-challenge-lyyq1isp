@@ -27,4 +27,9 @@
 		color: $color-cyan-600;
 		border: 1px solid $color-cyan-600;
 	}
+
+	&:disabled {
+		background-color: $color-gray-400;
+		cursor: not-allowed;
+	}
 }

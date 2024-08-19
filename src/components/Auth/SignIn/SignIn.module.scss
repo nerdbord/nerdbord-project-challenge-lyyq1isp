@@ -65,3 +65,9 @@
 	gap: 12px;
 	width: 100%;
 }
+
+.error {
+	font-size: $text-small;
+	font-weight: $text-regular;
+	color: $color-error;
+}

@@ -4,7 +4,10 @@ import styles from "./Button.module.scss";
 
 export type ButtonVariants = "primary" | "outline";
 
-type ButtonProps = { variant?: ButtonVariants } & React.HTMLAttributes<HTMLButtonElement> &
+type ButtonProps = {
+	variant?: ButtonVariants;
+	disabled?: boolean;
+} & React.HTMLAttributes<HTMLButtonElement> &
 	PropsWithChildren;
 
 const cx = classNames.bind(styles);
@@ -20,7 +23,7 @@ export const Button = ({ variant = "primary", className, ...props }: ButtonProps
 	);
 
 	return (
-		<button className={buttonClasses} {...props}>
+		<button className={buttonClasses} disabled={props.disabled} {...props}>
 			{props.children}
 		</button>
 	);
