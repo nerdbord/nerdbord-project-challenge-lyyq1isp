@@ -19,7 +19,7 @@ export const InputFormField = ({
 		<div className={cx(styles.formField, className)}>
 			{label && <label>{label}</label>}
 
-			<input type={type ? type : "text"} {...props} />
+			<input type={type ? type : "text"} {...props} className={error ? styles.invalid : ""} />
 
 			{error && <p className={styles.error}>{error}</p>}
 		</div>

@@ -27,7 +27,11 @@ export const PasswordFormField = ({
 			{label && <label>{label}</label>}
 
 			<div className={styles.inputWrapper}>
-				<input type={showPassword ? "text" : "password"} {...props} />
+				<input
+					type={showPassword ? "text" : "password"}
+					{...props}
+					className={error ? styles.invalid : ""}
+				/>
 				{withIcon && (
 					<button
 						className={styles.showPassword}

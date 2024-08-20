@@ -3,7 +3,7 @@
 export const GoogleIcon = () => {
 	return (
 		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<g clip-path="url(#clip0_1490_1997)">
+			<g clipPath="url(#clip0_1490_1997)">
 				<path
 					d="M19.7613 10.2312C19.7613 9.55141 19.7061 8.86797 19.5886 8.19922H10.1562V12.05H15.5577C15.3335 13.292 14.6134 14.3907 13.5588 15.0888V17.5874H16.7813C18.6736 15.8457 19.7613 13.2736 19.7613 10.2312Z"
 					fill="#4285F4"
