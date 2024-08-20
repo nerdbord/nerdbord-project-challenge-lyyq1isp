@@ -1,28 +1,28 @@
 ﻿"use client";
 
-import { useState, type FormEvent } from "react";
-import { useSignIn } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useSignUp } from "@clerk/nextjs";
 import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
+import { useRouter } from "next/navigation";
+import React, { type FormEvent, useState } from "react";
 import Link from "next/link";
-import styles from "./SignIn.module.scss";
-import { Logo } from "@/components/Logo/Logo";
-import { SignInWithButton } from "@/components/OAuth/SignInWithButton";
-import { FacebookIcon, GoogleIcon, IdeaIcon } from "@/assets/icons";
+import styles from "./SignUp.module.scss";
+import { IdeaIcon, GoogleIcon, FacebookIcon } from "@/assets/icons";
 import { Button } from "@/components/Button/Button";
 import { InputFormField } from "@/components/FormFields/InputFormField";
 import { PasswordFormField } from "@/components/FormFields/PasswordFormField";
 import { GoHomeButton } from "@/components/GoHomeButton/GoHomeButton";
+import { Logo } from "@/components/Logo/Logo";
+import { SignInWithButton } from "@/components/OAuth/SignInWithButton";
 
 const INITIAL_USER_DATA = { email: "", password: "" };
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/;
 
-export const SignIn = () => {
-	const { isLoaded, signIn, setActive } = useSignIn();
+export const SignUp = () => {
+	const { isLoaded, signUp, setActive } = useSignUp();
 	const [userData, setUserData] = useState(INITIAL_USER_DATA);
 	const router = useRouter();
-	const [signing, setSigning] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 	const [error, setErrors] = useState({ emailError: "", passwordError: "" });
 	const [submittingError, setSubmittingError] = useState("");
 
@@ -69,7 +69,7 @@ export const SignIn = () => {
 
 		try {
 			setSubmittingError("");
-			setSigning(true);
+			setSubmitting(true);
 			const { email, password } = userData;
 
 			if (!email || !password) {
@@ -77,23 +77,23 @@ export const SignIn = () => {
 				return;
 			}
 
-			const signInAttempt = await signIn.create({
-				identifier: email,
+			const signUpAttempt = await signUp.create({
+				emailAddress: email,
 				password,
 			});
 
-			if (signInAttempt.status === "complete") {
-				await setActive({ session: signInAttempt.createdSessionId });
+			if (signUpAttempt.status === "complete") {
+				await setActive({ session: signUpAttempt.createdSessionId });
 				router.push("/dashboard");
 			} else {
-				console.error("Sign in attempt failed", signInAttempt);
+				console.error("Sign in attempt failed", signUpAttempt);
 			}
 		} catch (err) {
 			if (isClerkAPIResponseError(err)) setSubmittingError(err.errors[0].message);
 
 			console.error(JSON.stringify(err, null, 2));
 		} finally {
-			setSigning(false);
+			setSubmitting(false);
 		}
 	};
 
@@ -104,12 +104,12 @@ export const SignIn = () => {
 			<Logo width={39} height={29} withText />
 
 			<div className={styles.heading}>
-				<h3 className={styles.header}>Witamy z powrotem!</h3>
+				<h3 className={styles.header}>Zaczynamy!</h3>
 
 				<div className={styles.info}>
 					<IdeaIcon />
 
-					<p>Wprowadź adres email powiązany z Twoim kontem Expanse Tracker</p>
+					<p>Podaj adres email oraz hasło aby utworzyć konto</p>
 				</div>
 			</div>
 
@@ -129,7 +129,6 @@ export const SignIn = () => {
 					label="Hasło"
 					placeholder="Wpisz hasło"
 					name="password"
-					remindPassword={() => console.log("Przypomnienie hasła")}
 					onChange={handleChange}
 					value={userData.password}
 					onBlur={handleValidate}
@@ -138,9 +137,9 @@ export const SignIn = () => {
 
 				<Button
 					className={styles.signInButton}
-					disabled={signing || !!error.emailError || !!error.passwordError}
+					disabled={submitting || !!error.emailError || !!error.passwordError}
 				>
-					Zaloguj się
+					Zarejestruj się
 				</Button>
 			</form>
 
@@ -162,8 +161,8 @@ export const SignIn = () => {
 				/>
 			</div>
 
-			<div className={styles.notHaveAccount}>
-				<p>Nie masz jeszcze konta?</p> <Link href={"/sign-up"}>Zarejestruj się</Link>
+			<div className={styles.haveAccount}>
+				<p>Masz już konto?</p> <Link href={"/sign-in"}>Zaloguj się</Link>
 			</div>
 
 			{submittingError && <p className={styles.error}>{submittingError}</p>}

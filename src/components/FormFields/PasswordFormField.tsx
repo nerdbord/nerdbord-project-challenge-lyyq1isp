@@ -38,7 +38,7 @@ export const PasswordFormField = ({
 						type="button"
 						onClick={() => setShowPassword((prev) => !prev)}
 					>
-						{showPassword ? <EyeOffIcon /> : <EyeOnIcon />}
+						{showPassword ? <EyeOnIcon /> : <EyeOffIcon />}
 					</button>
 				)}
 			</div>
