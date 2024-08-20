@@ -38,18 +38,18 @@ export const PasswordFormField = ({
 						type="button"
 						onClick={() => setShowPassword((prev) => !prev)}
 					>
-						{showPassword ? <EyeOffIcon /> : <EyeOnIcon />}
+						{showPassword ? <EyeOnIcon /> : <EyeOffIcon />}
 					</button>
 				)}
 			</div>
+
+			{error && <p className={styles.error}>{error}</p>}
 
 			{remindPassword && (
 				<button type="button" className={styles.remindPassword} onClick={remindPassword}>
 					Nie pamiętam hasła
 				</button>
 			)}
-
-			{error && <p className={styles.error}>{error}</p>}
 		</div>
 	);
 };

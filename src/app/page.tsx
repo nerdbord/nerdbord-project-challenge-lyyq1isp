@@ -9,6 +9,7 @@ export default function Home() {
 			<Container>
 				<div>landing page</div>
 				<Link href="/sign-in">Zaloguj</Link>
+				<Link href="/sign-up">Zarejestruj się</Link>
 			</Container>
 		</>
 	);

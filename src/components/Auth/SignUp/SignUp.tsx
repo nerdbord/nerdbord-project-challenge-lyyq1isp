@@ -1,11 +1,11 @@
 ﻿"use client";
 
-import { useSignIn } from "@clerk/nextjs";
+import { useSignUp } from "@clerk/nextjs";
 import { isClerkAPIResponseError } from "@clerk/nextjs/errors";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import styles from "./SignIn.module.scss";
+import styles from "./SignUp.module.scss";
 import { FacebookIcon, GoogleIcon, IdeaIcon } from "@/assets/icons";
 import { AuthForm } from "@/components/Auth/AuthForm/AuthForm";
 import { type AuthUserData } from "@/components/Auth/types";
@@ -13,8 +13,8 @@ import { GoHomeButton } from "@/components/GoHomeButton/GoHomeButton";
 import { Logo } from "@/components/Logo/Logo";
 import { SignInWithButton } from "@/components/OAuth/SignInWithButton";
 
-export const SignIn = () => {
-	const { isLoaded, signIn, setActive } = useSignIn();
+export const SignUp = () => {
+	const { isLoaded, signUp, setActive } = useSignUp();
 	const router = useRouter();
 	const [submitting, setSubmitting] = useState(false);
 	const [submittingError, setSubmittingError] = useState("");
@@ -29,16 +29,16 @@ export const SignIn = () => {
 			setSubmitting(true);
 			const { email, password } = userData;
 
-			const signInAttempt = await signIn.create({
-				identifier: email,
+			const signUpAttempt = await signUp.create({
+				emailAddress: email,
 				password,
 			});
 
-			if (signInAttempt.status === "complete") {
-				await setActive({ session: signInAttempt.createdSessionId });
+			if (signUpAttempt.status === "complete") {
+				await setActive({ session: signUpAttempt.createdSessionId });
 				router.push("/dashboard");
 			} else {
-				console.error("Sign in attempt failed", signInAttempt);
+				console.error("Sign in attempt failed", signUpAttempt);
 			}
 		} catch (err) {
 			if (isClerkAPIResponseError(err)) setSubmittingError(err.errors[0].message);
@@ -56,16 +56,21 @@ export const SignIn = () => {
 			<Logo width={39} height={29} withText />
 
 			<div className={styles.heading}>
-				<h3 className={styles.header}>Witamy z powrotem!</h3>
+				<h3 className={styles.header}>Zaczynamy!</h3>
 
 				<div className={styles.info}>
 					<IdeaIcon />
 
-					<p>Wprowadź adres email powiązany z Twoim kontem Expanse Tracker</p>
+					<p>Podaj adres email oraz hasło aby utworzyć konto</p>
 				</div>
 			</div>
 
-			<AuthForm onSubmit={handleSubmit} submitting={submitting} submitButtonText="Zaloguj się!" />
+			<AuthForm
+				onSubmit={handleSubmit}
+				submitting={submitting}
+				submitButtonText="Zarejestruj się!"
+				registerForm
+			/>
 
 			<div className={styles.divider}>-lub-</div>
 
@@ -85,8 +90,8 @@ export const SignIn = () => {
 				/>
 			</div>
 
-			<div className={styles.notHaveAccount}>
-				<p>Nie masz jeszcze konta?</p> <Link href={"/sign-up"}>Zarejestruj się</Link>
+			<div className={styles.haveAccount}>
+				<p>Masz już konto?</p> <Link href={"/sign-in"}>Zaloguj się</Link>
 			</div>
 
 			{submittingError && <p className={styles.error}>{submittingError}</p>}
