@@ -43,13 +43,13 @@ export const PasswordFormField = ({
 				)}
 			</div>
 
+			{error && <p className={styles.error}>{error}</p>}
+
 			{remindPassword && (
 				<button type="button" className={styles.remindPassword} onClick={remindPassword}>
 					Nie pamiętam hasła
 				</button>
 			)}
-
-			{error && <p className={styles.error}>{error}</p>}
 		</div>
 	);
 };

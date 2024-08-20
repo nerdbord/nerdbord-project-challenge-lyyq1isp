@@ -45,18 +45,6 @@
 	color: $color-gray-400;
 }
 
-.form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 16px;
-	width: 100%;
-
-	& .signInButton {
-		width: 200px;
-	}
-}
-
 .buttonsWrapper {
 	display: flex;
 	flex-direction: column;
