@@ -16,6 +16,8 @@ body {
 body {
 	display: flex;
 	flex-direction: column;
+	max-width: 414px;
+	margin: 0 auto;
 }
 
 ul {

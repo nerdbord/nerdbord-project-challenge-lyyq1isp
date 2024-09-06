@@ -1,0 +1,164 @@
+﻿@import "@/styles/colors";
+@import "@/styles/fonts";
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 0;
+    background-color: $color-gray-100;
+}
+
+.heroSection {
+    & img {
+        width: 100%;
+    }
+
+    .heroBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 35px 0;
+    
+        & h4 {
+            margin-bottom: 8px;
+            text-align: center;
+            color: $color-blue-900;
+        }
+    
+        & p {
+            padding: 0 35px;
+            text-align: center;
+            color: $color-typo;
+            font-size: 14px;
+        }
+    
+        & .ctaBtn {
+            max-width: 180px;
+            width: 100%;
+            font-weight: normal;
+        }
+    }
+}
+
+.featuresSection {
+    padding: 44px 16px;
+    background-color: $color-gray-100;
+
+    & .featuresList {
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+
+        & .featureItem {
+            display: flex;
+            gap: 24px;
+    
+            & h6 {
+                margin-bottom: 12px;
+                color: $color-gray-500;
+            }
+
+            & p {
+                color: $color-gray-400;
+
+                & span {
+                color: $color-gray-500;
+                }
+            }
+
+            &:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+    }
+}
+}
+
+.forWhomSection {
+    padding: 44px 16px;
+
+    & h4 {
+        text-align: center;
+        color: $color-blue-900;
+    }
+
+    & .forWhomList {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+        & .forWhomItem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex-basis: calc(50% - 20px);
+    
+            & p {
+                color: $color-typo;
+                & span {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+.joinUsSection {
+    background-color: $color-gray-100;
+
+    & img {
+        width: 100%;
+    }
+
+    .joinUsBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 35px 16px;
+    
+        & h5 {
+            text-align: center;
+            color: $color-typo;
+    
+            & span {
+                color: $color-blue-800;
+            }
+        }
+    
+        & .ctaBtn {
+            max-width: 180px;
+            width: 100%;
+            font-weight: normal;
+        }
+    
+        & .divider {
+            font-size: $text-medium;
+            color: $color-gray-400;
+        }
+    
+        & .buttonsWrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 35px 16px;
+
+    & p {
+        font-size: $text-small;
+        color: $color-typo;
+    }
+}

@@ -1,16 +1,5 @@
-import Link from "next/link";
-import { Container } from "@/components/Container/Container";
-import { Header } from "@/components/Header/Header";
+import { LandingPage } from "@/components/LandingPage/LandingPage";
 
 export default function Home() {
-	return (
-		<>
-			<Header />
-			<Container>
-				<div>landing page</div>
-				<Link href="/sign-in">Zaloguj</Link>
-				<Link href="/sign-up">Zarejestruj się</Link>
-			</Container>
-		</>
-	);
+	return <LandingPage />;
 }
